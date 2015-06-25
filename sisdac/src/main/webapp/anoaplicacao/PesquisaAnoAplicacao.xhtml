@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa Produto</ui:define>
+    <ui:define name="corpo">
+        <section class="form-pequeno">
+
+
+            <f:metadata>
+                <f:event listener="#{beanAnoAplicacao.init()}"
+                         type="preRenderView"></f:event>
+            </f:metadata>
+            <h:form>
+                <h1>Pesquisa Produto</h1>
+                <!-- BARRA DE FERRAMENTA -->
+                <p:toolbar style="margin-top:20px">
+                    <!-- GRUPO ESQUERDO -->
+                    <p:toolbarGroup>
+                        <p:commandButton value="Pesquisar" id="btn-produto-pesquisar" action="#{beanAnoAplicacao.listarFiltrados()}" update="datatable-produtos" />
+                    </p:toolbarGroup>
+                    <!-- GRUPO DIREITO -->
+                    <p:toolbarGroup align="right">
+                        <p:button value="Novo" outcome="/anoaplicacao/CadastroAnoAplicacao" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <!-- AREA DE PESQUISA -->
+                <p:messages autoUpdate="true"></p:messages>
+                <p:panelGrid columns="2" id="painel" style="width:100%; margin-top:20px" columnClasses="rotulo, compo">
+                    <p:outputLabel value="Id" for="id" />
+                    <p:inputText id="id" size="20" maxlength="20"  value="#{beanAnoAplicacao.filter.id}"/>
+
+                    <p:outputLabel value="Ano" for="ano" />
+                    <p:inputText id="ano" size="60" maxlength="80" value="#{beanAnoAplicacao.filter.ano}" />
+                </p:panelGrid>
+                <!-- DATATABLE -->
+                <p:dataTable id="datatable-produtos"
+                             value="#{beanAnoAplicacao.anos}" var="ano"
+                             style="margin-top:20px" emptyMessage="Nenhum registro encontrado!"
+                             rows="10" paginator="true" paginatorPosition="bottom"
+                             paginatorAlwaysVisible="false">
+                    <p:column headerText="Id" style="text-align: center; width:100px">
+                        <h:outputText value="#{ano.id}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{ano.anoAplicacao}" />
+                    </p:column>
+
+
+
+                    <p:column style="width:100px; text-align:center">
+                        <p:button icon="ui-icon-pencil" title="Editar" outcome="/anoaplicacao/CadastroAnoAplicacao">
+                            <f:param name="ano" value="#{ano.id}"/>
+                        </p:button>
+                        <p:commandButton icon="ui-icon-trash" title="Excluir"
+                                         oncomplete="PF('ex').show();" >
+                            <f:setPropertyActionListener value="#{ano}" target="#{beanAnoAplicacao.anoAplicacao}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <!-- CONFIRMA DIALOG PARA CONFIRMAÇÃO DE EXCLUSAO -->
+                <p:confirmDialog header="Exclusão de produto"
+                                 message="Tem certeza que deseja excluir esse produto?"
+                                 widgetVar="ex">
+                    <p:button value="Não" onclick="PF('ex').hide();
+                            return false;" />
+                    <p:commandButton value="Sim" oncomplete="PF('ex').hide();"
+                                     action="#{beanAnoAplicacao.delete()}" update="datatable-produtos" />
+                </p:confirmDialog>
+
+            </h:form>
+        </section>
+    </ui:define>
+
+</ui:composition>

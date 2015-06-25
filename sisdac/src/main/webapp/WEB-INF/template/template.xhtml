@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="titulo">pulos.com.br</ui:insert></title>
+        <h:outputStylesheet library="css" name="pulos.css" />
+        <h:outputScript library="js" name="jquery.maskMoney.js" />
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <!-- COMPONENTE AJAX_STATUS -->
+            <p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
+                <f:facet name="start">
+                    <h:graphicImage library="images" value="loading.gif"
+                                    style="width:35px; height:35px" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+            <!-- CABECALHO DA PAGINA -->
+            <header> <!-- DIV LOGO -->
+                <div style="float: left">
+                    <h:link outcome="/home">
+                        <h:graphicImage id="logo" library="images" name="logojava.jpg" style="width:50px;height:30px; margin-left:100px" />
+
+                    </h:link>
+                </div>
+                <!-- DIV BARRA DE MENU -->
+
+                <div style="float: right; margin-right: 110px">
+                    <span
+                        style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+                        Olá Usuário </span>
+                    <ui:include src="/WEB-INF/template/MenuSistema.xhtml" />
+                </div>
+
+                <div style="clear: both" />
+            </header>
+            <!-- CONTEUDO DA PAGINA -->
+            <div id="conteudo">
+                <ui:insert name="corpo"></ui:insert>
+            </div>
+            <!-- RODAPE DA PAGINA -->
+            <p:separator style="margin-top: 20px" />
+            <footer> pulos.com.br <br />
+                <a href="www.pulos.com.br" target="_blank">www.pulos.com.br</a> </footer>
+            <!-- CONFIGURAR MOEDA -->
+            <script>
+
+                function configurarMoeda() {
+                    $(".moeda").maskMoney({decimal: ",", thousands: ".", allowZero: true});
+                }
+
+                $(document).ready(function () {
+                    configurarMoeda();
+                });
+            </script>
+
+        </h:form>
+    </h:body>
+</html>

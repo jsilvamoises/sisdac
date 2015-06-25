@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Novo Pedido</ui:define>
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Novo Pedido</h1>
+			<!-- BARRA DE FERRAMENTA -->
+			<ui:include src="/WEB-INF/template/pedido/BotoesPedido.xhtml" />
+			<!-- CAPA DO PEDIDO -->
+			<ui:include src="/WEB-INF/template/pedido/CapaPedido.xhtml" />
+			<!-- DADOS DO PEDIDO -->
+			<p:tabView style="margin-top:20px">
+
+				<p:tab title="Itens">
+					<ui:include src="/WEB-INF/template/pedido/ItensPedido.xhtml" />
+				</p:tab>
+
+				<p:tab title="Dados de entrega">
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Data prevista para entrega" />
+						<p:calendar />
+
+						<p:outputLabel value="Hora prevista para entrega" />
+						<p:calendar id="time" timeOnly="true" pattern="HH:mm"/>
+					</h:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Observação">
+				<h1><p:outputLabel value="Caso haja algum dano no veículo informar" /></h1><br/>
+				<p:inputTextarea style="width:100%"/>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

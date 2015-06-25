@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="2">
+		<p:outputLabel value="SKU" />
+		<p:inputText placeholder="SKU" />
+
+		<p:outputLabel value="Nome" />
+		<p:inputText placeholder="Nome do Produto" />
+	</h:panelGrid>
+
+	<p:dataTable value="#{beanTeste.lista}" var="item" style="margin-top: 20px;" rows="5" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		<p:column headerText="SKU" style="width:100px" >
+			<h:outputText value="123456" />
+		</p:column>
+
+		<p:column headerText="Produto">
+			<h:outputText value="Nome do Produto" />
+		</p:column>
+
+		<p:column headerText="Valor Unitário">
+			<h:outputText value="R$ 12,3456" />
+		</p:column>
+
+		<p:column headerText="Quantidade">
+			<h:outputText value="10" />
+		</p:column>
+
+		<p:column headerText="Valor do Serviço">
+			<h:outputText value="R$ 1,36" />
+		</p:column>
+
+		<p:column headerText="Sub Total">
+			<h:outputText value="R$ 123,456" />
+		</p:column>
+		
+		<p:columnGroup type="footer">
+		<p:row>
+		    <p:column colspan="5" footerText="Subtotal" style="text-align:right"/>
+		    <p:column footerText="R$ 0,00" style="text-align:right"/>
+		</p:row>
+		</p:columnGroup>
+
+	</p:dataTable>
+
+</ui:composition>
