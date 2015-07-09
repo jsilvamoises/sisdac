@@ -6,13 +6,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 >
 
-    <f:metadata>
-        <f:viewParam name="dummy"/>
-       
-    </f:metadata>
+   
     <ui:define name="titulo">Ano aplicação</ui:define>
     <ui:define name="corpo">
-        <section class="form-pequeno">
+        <h:form>
+            
+       
             <!--MENSAGENS-->
             <p:messages autoUpdate="true"/>  
 
@@ -40,7 +39,7 @@
                     <p:button value="Pesquisa" outcome="/anoaplicacao/PesquisaAnoAplicacao" />
                 </p:toolbarGroup>
             </p:toolbar>
-        </section>
+        </h:form>
     </ui:define>
 
 </ui:composition>

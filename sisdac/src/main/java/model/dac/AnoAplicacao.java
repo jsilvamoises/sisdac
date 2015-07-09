@@ -21,28 +21,21 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "tbl_ano_aplicacao")
-public class AnoAplicacao implements Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class AnoAplicacao implements Serializable {
 
-	
-    
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "aap_id")
     private Long id;
-    
-    @NotBlank    
+
+    @NotBlank
     @Column(name = "aap_ano_aplicacao", unique = true)
     private String anoAplicacao;
 
     public AnoAplicacao() {
     }
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -63,7 +56,7 @@ public class AnoAplicacao implements Serializable{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -82,10 +75,10 @@ public class AnoAplicacao implements Serializable{
         return true;
     }
 
+   
     @Override
     public String toString() {
         return String.valueOf(id);
     }
-    
-    
+
 }

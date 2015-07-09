@@ -9,10 +9,9 @@ import filter.AnoAplicacaoFilter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import model.dac.AnoAplicacao;
 
 import repository.AnoAplicacaoRepository;
@@ -21,20 +20,20 @@ import repository.AnoAplicacaoRepository;
  *
  * @author MOISES
  */
-@Named
-@SessionScoped
+@ManagedBean
+@ViewScoped
 public class BeanAnoAplicacao implements Serializable{
     
-    private AnoAplicacao anoAplicacao;
+    private AnoAplicacao anoAplicacao = new AnoAplicacao();
     private List<AnoAplicacao> anos = new ArrayList<>();
     
-    @Inject
-    AnoAplicacaoRepository repository;
+   //@Inject
+    AnoAplicacaoRepository repository = new AnoAplicacaoRepository();
     
     private String idEdicao;
     
-    @Inject
-    private AnoAplicacaoFilter filter;
+   // @Inject
+    private AnoAplicacaoFilter filter = new AnoAplicacaoFilter();
 
     public BeanAnoAplicacao() {
         System.out.println("Criando objeto");

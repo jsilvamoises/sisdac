@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
+    <h:form>
+        <div style="display:inline-block">
+            <p:menubar styleClass="menu-sistema">
 
-	<div style="display:inline-block">
-		<p:menubar styleClass="menu-sistema">
+                <p:submenu label="Cadastro">
+                    <p:menuitem value="Cliente" />
+                    <p:menuitem value="Usuario" />
+                    <p:separator />
+                    <p:menuitem value="Categoria" url="#" />
+                    <p:menuitem value="Produto" outcome="/produto/PesquisaProduto" />
+                </p:submenu>
 
-			<p:submenu label="Cadastro">
-				<p:menuitem value="Cliente" />
-				<p:menuitem value="Usuario" />
-				<p:separator />
-				<p:menuitem value="Categoria" url="#" />
-				<p:menuitem value="Produto" outcome="/produto/PesquisaProduto" />
-			</p:submenu>
+                <p:submenu label="Pedido">
+                    <p:menuitem value="Novo Pedido" outcome="/pedido/CadastroPedido" />
+                    <p:menuitem value="Pesquisa" outcome="/pedido/PesquisaPedido" />
+                </p:submenu>
 
-			<p:submenu label="Pedido">
-				<p:menuitem value="Novo Pedido" outcome="/pedido/CadastroPedido" />
-				<p:menuitem value="Pesquisa" outcome="/pedido/PesquisaPedido" />
-			</p:submenu>
+                <p:menuitem value="Sair" />
+            </p:menubar>
 
-			<p:menuitem value="Sair" />
-		</p:menubar>
-
-	</div>
+        </div>
+    </h:form>
 </ui:composition>

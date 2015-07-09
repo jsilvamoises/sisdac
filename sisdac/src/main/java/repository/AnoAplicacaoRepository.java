@@ -1,12 +1,10 @@
 package repository;
 
 import filter.AnoAplicacaoFilter;
-import interfaces.InterfaceRepository;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import util.FacesUtil;
@@ -16,19 +14,20 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import util.JpaUtil;
 
-public class AnoAplicacaoRepository implements Serializable, InterfaceRepository {
+public class AnoAplicacaoRepository implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Inject
+    //@Inject
     EntityManager manager;
 
-    @Override
-    public boolean save(Object object) {
+    public boolean save(AnoAplicacao ano) {
         try {
+            manager = JpaUtil.getEntityManager();
             manager.getTransaction().begin();
-            manager.persist(object);
+            manager.persist(ano);
             manager.getTransaction().commit();
             FacesUtil.addInfoMessage(
                     "Salvo com sucesso!!!!");
@@ -44,15 +43,15 @@ public class AnoAplicacaoRepository implements Serializable, InterfaceRepository
 
     }
 
-    @Override
-    public boolean saveOrUpdate(Object object) {
+    public boolean saveOrUpdate(AnoAplicacao ano) {
+        manager = JpaUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
-            if (((AnoAplicacao) object).getId() > 0) {
-                manager.merge(object);
+            if (ano.getId() > 0) {
+                manager.merge(ano);
 
             } else {
-                manager.persist(object);
+                manager.persist(ano);
             }
             manager.getTransaction().commit();
             FacesUtil.addInfoMessage(
@@ -67,11 +66,10 @@ public class AnoAplicacaoRepository implements Serializable, InterfaceRepository
         }
     }
 
-    @Override
-    public boolean merge(Object object) {
+    public boolean merge(AnoAplicacao ano) {
         try {
-
-            manager.merge(object);
+            manager = JpaUtil.getEntityManager();
+            manager.merge(ano);
             FacesUtil.addInfoMessage(
                     "Salvo com sucesso!!!!");
             return true;
@@ -83,12 +81,11 @@ public class AnoAplicacaoRepository implements Serializable, InterfaceRepository
         }
     }
 
-    @Override
-    public boolean remove(Object object) {
+    public boolean remove(AnoAplicacao ano) {
         try {
+             manager = JpaUtil.getEntityManager();
             manager.getTransaction().begin();
-            AnoAplicacao obj = manager.find(AnoAplicacao.class,
-                    ((AnoAplicacao) object).getId());
+            AnoAplicacao obj = manager.find(AnoAplicacao.class,ano.getId());
             manager.remove(obj);
             manager.getTransaction().commit();
             FacesUtil.addInfoMessage(
@@ -103,9 +100,9 @@ public class AnoAplicacaoRepository implements Serializable, InterfaceRepository
         }
     }
 
-    @Override
     public Object getById(Long id) {
         try {
+             manager = JpaUtil.getEntityManager();
             return manager.find(AnoAplicacao.class, (long) id);
         } catch (Exception e) {
             return null;
@@ -114,29 +111,29 @@ public class AnoAplicacaoRepository implements Serializable, InterfaceRepository
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    @Override
+
     public List listAll() {
         try {
+             manager = JpaUtil.getEntityManager();
             return manager.createQuery("from AnoAplicacao").getResultList();
         } catch (Exception e) {
             return null;
 
         }
     }
-    
-    public List filtrados(AnoAplicacaoFilter filter){
+
+    public List filtrados(AnoAplicacaoFilter filter) {
         Session session = manager.unwrap(Session.class);
         Criteria criteria = session.createCriteria(AnoAplicacao.class);
-        
-        if(filter.getId()>0){
+
+        if (filter.getId() > 0) {
             criteria.add(Restrictions.eq("id", filter.getId()));
         }
-        
-        
-        if(filter.getAno()!=null){
-            criteria.add(Restrictions.ilike("anoAplicacao", filter.getAno(), MatchMode.ANYWHERE) );
+
+        if (filter.getAno() != null) {
+            criteria.add(Restrictions.ilike("anoAplicacao", filter.getAno(), MatchMode.ANYWHERE));
         }
-        
+
         return criteria.addOrder(Order.asc("anoAplicacao")).list();
     }
 
